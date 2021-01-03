@@ -23,13 +23,17 @@ files = [
     "10000000to10999999_ContractInfo"
 ];
 
+writer = csv.writer(open('labeled_contract_info.csv', 'w', newline=''))
+writer.writerow(
+    ['address', 'createdBlockNumber', 'createdTimestamp', 'createdTransactionHash', 'creator', 'creatorIsContract',
+     'createValue', 'creationCode', 'contractCode'])
+
 for file in files:
     print(file);
     theZIP = zipfile.ZipFile(file + ".zip", 'r');
     theCSV = theZIP.open(file + "_Created.csv", 'r');
     theCSV.readline()
-    writer = csv.writer(open('labeled_contract_info.csv', 'w', newline=''))
-    writer.writerow(['address', 'createdBlockNumber', 'createdTimestamp', 'createdTransactionHash', 'creator', 'creatorIsContract', 'createValue', 'creationCode', 'contractCode'])
+
     index=0
     for line in theCSV:
         if (line.decode().split(",")[0]) in id:
